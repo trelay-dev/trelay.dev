@@ -1,56 +1,41 @@
-# Trelay Website
+<p align="center">
+  <img src="static/logo.png" alt="Trelay" width="80" />
+</p>
 
-Marketing website for [Trelay](https://github.com/trelay-dev/trelay) - the developer-first, privacy-respecting URL shortener.
+<h1 align="center">Trelay</h1>
 
-## Tech Stack
+<p align="center"><strong>Your Links, Your Server.</strong></p>
 
-- **Framework**: SvelteKit 2.x with Svelte 5
-- **Styling**: Custom CSS with design system
-- **Package Manager**: Bun
+Trelay is a developer-first, privacy-respecting URL shortener and link manager designed for self-hosting. All data stays on your server with no external dependencies or telemetry.
 
-## Development
+## Why Trelay?
 
-```bash
-# Install dependencies
-bun install
-
-# Start development server
-bun run dev
-
-# Build for production
-bun run build
-
-# Preview production build
-bun run preview
-```
-
-## Project Structure
-
-```
-src/
-├── app.css              # Global styles and design system
-├── app.html             # HTML template
-├── lib/
-│   └── components/      # Reusable components
-│       ├── Nav.svelte
-│       ├── Hero.svelte
-│       ├── Features.svelte
-│       ├── CliShowcase.svelte
-│       ├── Comparison.svelte
-│       ├── Cta.svelte
-│       └── Footer.svelte
-└── routes/
-    ├── +layout.svelte   # Root layout
-    └── +page.svelte     # Homepage
-```
+- **Self-hosted**: Your data never leaves your infrastructure
+- **Privacy-first**: No tracking, no telemetry, IP anonymization by default
+- **Developer-friendly**: Powerful CLI, REST API, and modern dashboard
+- **Single container**: Deploy with one Docker command
+- **Open source**: MIT licensed, free forever
 
 ## Features
 
-- Responsive design (mobile, tablet, desktop)
-- Light and dark theme support
-- Modern, minimal aesthetic
-- Accessible navigation
-- SEO optimized
+- Custom slugs, password protection, expiration dates
+- One-time links that self-destruct after first access
+- Tags and folder organization
+- Analytics with CSV/JSON export
+- QR code generation
+- Full CLI with pipe support and multiple output formats
+- RESTful API with JWT and API key authentication
+
+## Quick Start
+
+```bash
+docker run -p 8080:8080 trelay/trelay
+```
+
+## Links
+
+- **Repository**: [github.com/trelay-dev/trelay](https://github.com/trelay-dev/trelay)
+- **Documentation**: [github.com/trelay-dev/trelay#readme](https://github.com/trelay-dev/trelay#readme)
 
 ## License
 
