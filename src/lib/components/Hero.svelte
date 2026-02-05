@@ -162,6 +162,11 @@
 		background-clip: text;
 	}
 
+	.gradient-text::selection {
+		-webkit-text-fill-color: var(--color-bg);
+		background: var(--color-brand);
+	}
+
 	.hero-description {
 		font-size: var(--text-base);
 		color: var(--color-text-secondary);
