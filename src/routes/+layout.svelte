@@ -1,7 +1,10 @@
 <script lang="ts">
 	import '../app.css';
+	import { inject } from '@vercel/analytics';
 	import Nav from '$lib/components/Nav.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+
+	inject();
 
 	let { children } = $props();
 </script>
