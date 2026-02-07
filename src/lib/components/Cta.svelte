@@ -1,4 +1,34 @@
 <script lang="ts">
+	const CTA_CODE = `git clone https://github.com/trelay-dev/trelay.git
+cd trelay
+cp env.example .env
+docker compose up -d`;
+
+	let copied = $state(false);
+
+	async function copyToClipboard() {
+		try {
+			await navigator.clipboard.writeText(CTA_CODE);
+			copied = true;
+			setTimeout(() => (copied = false), 2000);
+		} catch {
+			// fallback for older browsers
+			const ta = document.createElement('textarea');
+			ta.value = CTA_CODE;
+			ta.setAttribute('readonly', '');
+			ta.style.position = 'absolute';
+			ta.style.left = '-9999px';
+			document.body.appendChild(ta);
+			ta.select();
+			try {
+				document.execCommand('copy');
+				copied = true;
+				setTimeout(() => (copied = false), 2000);
+			} finally {
+				document.body.removeChild(ta);
+			}
+		}
+	}
 </script>
 
 <section class="cta">
@@ -9,15 +39,21 @@
 				Clone, set your .env (API_KEY, JWT_SECRET), and run. Self-hosted, open source, MIT licensed.
 			</p>
 			
-			<div class="cta-code">
-				<code>git clone https://github.com/trelay-dev/trelay.git && cd trelay && cp env.example .env && docker compose up -d</code>
-				<button class="copy-btn" aria-label="Copy to clipboard">
+		<div class="cta-code">
+			<button type="button" class="copy-btn" aria-label="Copy to clipboard" onclick={copyToClipboard} title={copied ? 'Copied!' : 'Copy'}
+				>{#if copied}
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<polyline points="20 6 9 17 4 12"></polyline>
+					</svg>
+				{:else}
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
 						<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
 					</svg>
-				</button>
-			</div>
+				{/if}
+			</button>
+			<code>{CTA_CODE}</code>
+		</div>
 
 			<div class="cta-actions">
 				<a href="https://github.com/trelay-dev/trelay" target="_blank" rel="noopener" class="btn btn-primary">
@@ -26,9 +62,9 @@
 					</svg>
 					View on GitHub
 				</a>
-				<a href="https://github.com/trelay-dev/trelay#quick-start" target="_blank" rel="noopener" class="btn btn-outline">
-					Quick Start
-				</a>
+			<a href="/docs/installation" class="btn btn-outline">
+				Quick Start
+			</a>
 			</div>
 		</div>
 	</div>
@@ -61,33 +97,43 @@
 	}
 
 	.cta-code {
-		display: inline-flex;
-		align-items: center;
-		gap: var(--space-3);
+		position: relative;
+		display: inline-block;
+		text-align: left;
 		background: var(--color-bg-elevated);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-md);
-		padding: var(--space-3) var(--space-4);
+		padding: var(--space-4) var(--space-12) var(--space-4) var(--space-4);
 		margin-bottom: var(--space-8);
+		max-width: 100%;
 	}
 
 	.cta-code code {
 		font-family: var(--font-mono);
 		font-size: var(--text-sm);
 		color: var(--color-text);
+		white-space: pre;
+		display: block;
+		line-height: 1.6;
 	}
 
 	.copy-btn {
+		position: absolute;
+		top: var(--space-2);
+		right: var(--space-2);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: var(--space-1);
+		padding: var(--space-2);
 		color: var(--color-text-muted);
-		transition: color var(--transition-fast);
+		background: var(--color-bg-subtle);
+		border-radius: var(--radius-sm);
+		transition: color var(--transition-fast), background var(--transition-fast);
 	}
 
 	.copy-btn:hover {
 		color: var(--color-text);
+		background: var(--color-border-light);
 	}
 
 	.cta-actions {
@@ -137,12 +183,13 @@
 		}
 
 		.cta-code {
-			width: 100%;
-			justify-content: space-between;
+			padding: var(--space-4);
+			padding-right: var(--space-10);
 		}
 
 		.cta-code code {
 			font-size: var(--text-xs);
+			overflow-x: auto;
 		}
 
 		.cta-actions {
