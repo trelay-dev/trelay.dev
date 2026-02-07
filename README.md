@@ -20,16 +20,23 @@ Trelay is a developer-first, privacy-respecting URL shortener and link manager d
 
 - Custom slugs, password protection, expiration dates
 - One-time links that self-destruct after first access
-- Tags and folder organization
-- Analytics with CSV/JSON export
-- QR code generation
-- Full CLI with pipe support and multiple output formats
-- RESTful API with JWT and API key authentication
+- Folder organization, trash with restore
+- Click analytics with CSV/JSON export, IP anonymization
+- Open Graph preview, QR code generation (download/clipboard)
+- Cross-platform CLI with shell completion and table/JSON/CSV output
+- REST API with JWT and API key auth; OpenAPI spec in `trelay/api/openapi.yaml`
 
-## Quick Start
+## Keeping the site in sync
+
+Content and copy are aligned with the **trelay** app. When updating the app (README, features, CLI, API), update this marketing site accordingly: `Hero.svelte`, `Features.svelte`, `CliShowcase.svelte`, `Cta.svelte`, and this README.
+
+## Quick Start (from main repo)
 
 ```bash
-docker run -p 8080:8080 trelay/trelay
+git clone https://github.com/trelay-dev/trelay.git && cd trelay
+cp env.example .env   # set API_KEY, JWT_SECRET
+docker compose up -d
+# Dashboard at http://localhost:8080
 ```
 
 ## Links

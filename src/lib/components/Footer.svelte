@@ -29,9 +29,10 @@
 				<div class="footer-group">
 					<h4 class="footer-heading">Resources</h4>
 					<nav class="footer-nav">
-						<a href="https://github.com/trelay-dev/trelay" target="_blank" rel="noopener">Documentation</a>
-						<a href="https://github.com/trelay-dev/trelay#api" target="_blank" rel="noopener">API Reference</a>
-						<a href="https://github.com/trelay-dev/trelay/releases" target="_blank" rel="noopener">Changelog</a>
+						<a href="/docs">Documentation</a>
+						<a href="/docs/installation">Quick Start</a>
+						<a href="/docs/api">API Reference</a>
+						<a href="https://github.com/trelay-dev/trelay/releases" target="_blank" rel="noopener">Releases</a>
 					</nav>
 				</div>
 

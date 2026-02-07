@@ -42,10 +42,10 @@
 		</a>
 
 		<div class="nav-links" class:open={mobileMenuOpen}>
-			<a href="#features" class="nav-link" onclick={closeMobileMenu}>Features</a>
-			<a href="#cli" class="nav-link" onclick={closeMobileMenu}>CLI</a>
-			<a href="#comparison" class="nav-link" onclick={closeMobileMenu}>Compare</a>
-			<a href="https://github.com/trelay-dev/trelay" target="_blank" rel="noopener" class="nav-link">Docs</a>
+			<a href="/#features" class="nav-link" onclick={closeMobileMenu}>Features</a>
+			<a href="/#cli" class="nav-link" onclick={closeMobileMenu}>CLI</a>
+			<a href="/#comparison" class="nav-link" onclick={closeMobileMenu}>Compare</a>
+			<a href="/docs" class="nav-link" onclick={closeMobileMenu}>Docs</a>
 		</div>
 
 		<div class="nav-actions">

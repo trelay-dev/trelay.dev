@@ -6,11 +6,11 @@
 		<div class="cta-content">
 			<h2 class="cta-title">Ready to take control of your links?</h2>
 			<p class="cta-description">
-				Deploy Trelay in minutes. Self-hosted, open source, and completely free.
+				Clone, set your .env (API_KEY, JWT_SECRET), and run. Self-hosted, open source, MIT licensed.
 			</p>
 			
 			<div class="cta-code">
-				<code>docker run -p 8080:8080 trelay/trelay</code>
+				<code>git clone https://github.com/trelay-dev/trelay.git && cd trelay && cp env.example .env && docker compose up -d</code>
 				<button class="copy-btn" aria-label="Copy to clipboard">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -26,8 +26,8 @@
 					</svg>
 					View on GitHub
 				</a>
-				<a href="https://github.com/trelay-dev/trelay#installation" target="_blank" rel="noopener" class="btn btn-outline">
-					Read the Docs
+				<a href="https://github.com/trelay-dev/trelay#quick-start" target="_blank" rel="noopener" class="btn btn-outline">
+					Quick Start
 				</a>
 			</div>
 		</div>

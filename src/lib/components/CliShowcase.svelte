@@ -1,11 +1,11 @@
 <script lang="ts">
 	const commands = [
-		{ cmd: 'trelay create', desc: 'Create short links with all options' },
-		{ cmd: 'trelay list', desc: 'List and search your links' },
-		{ cmd: 'trelay stats', desc: 'View analytics with export' },
+		{ cmd: 'trelay create', desc: 'Create short links with options' },
+		{ cmd: 'trelay list', desc: 'List and filter your links' },
+		{ cmd: 'trelay stats', desc: 'View click analytics' },
 		{ cmd: 'trelay qr', desc: 'Generate QR codes' },
 		{ cmd: 'trelay folder', desc: 'Organize with folders' },
-		{ cmd: 'trelay config', desc: 'Configure API and settings' }
+		{ cmd: 'trelay config', desc: 'Configure CLI settings' }
 	];
 </script>
 
@@ -28,7 +28,7 @@
 					{/each}
 				</div>
 
-				<a href="https://github.com/trelay-dev/trelay#cli" target="_blank" rel="noopener" class="btn btn-secondary">
+				<a href="https://github.com/trelay-dev/trelay#cli-commands" target="_blank" rel="noopener" class="btn btn-secondary">
 					View CLI Docs
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<line x1="7" y1="17" x2="17" y2="7"></line>
@@ -151,6 +151,7 @@
 		border: 1px solid var(--color-border-light);
 		color: var(--color-brand);
 		white-space: nowrap;
+		flex-shrink: 0;
 	}
 
 	.command-desc {

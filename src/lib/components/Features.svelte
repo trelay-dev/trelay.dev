@@ -2,33 +2,33 @@
 	const features = [
 		{
 			icon: 'link',
-			title: 'Smart Link Management',
-			description: 'Custom slugs, password protection, expiration dates, one-time links, tags, and folder organization.'
+			title: 'Link Management',
+			description: 'Custom slugs, expiration, password protection, one-time links that self-destruct after first use, and folder organization.'
 		},
 		{
 			icon: 'chart',
 			title: 'Privacy-First Analytics',
-			description: 'Track clicks, referrers, and devices with IP anonymization by default. Export to CSV or JSON.'
+			description: 'Click analytics with IP anonymization by default. Export to CSV or JSON. Optional custom domain via BASE_URL.'
 		},
 		{
 			icon: 'terminal',
-			title: 'Powerful CLI',
-			description: 'Full control from your terminal. Create, list, delete, and view stats with pipe support and multiple output formats.'
+			title: 'Cross-Platform CLI',
+			description: 'Create, list, get, delete, stats, and QR from the terminal. Shell completion and table/JSON/CSV output.'
 		},
 		{
 			icon: 'api',
 			title: 'REST API',
-			description: 'Complete API with JWT and API key auth. Perfect for automation, integrations, and custom workflows.'
+			description: 'Full API with JWT and API key auth. Links, folders, stats, preview, restore from trash. OpenAPI spec included.'
 		},
 		{
 			icon: 'docker',
 			title: 'Single Container',
-			description: 'Deploy with one Docker command. SQLite by default, Postgres ready. Zero external dependencies.'
+			description: 'Deploy with Docker Compose. SQLite by default, single binary + frontend. No external dependencies.'
 		},
 		{
 			icon: 'shield',
 			title: 'Security Built-in',
-			description: 'Rate limiting, secure headers, bcrypt passwords, input validation. No telemetry, no tracking.'
+			description: 'Rate limiting, secure headers, JWT/API key auth, input validation. No telemetry, no tracking.'
 		}
 	];
 </script>

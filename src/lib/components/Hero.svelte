@@ -12,18 +12,13 @@
 			<span>v2.0 — Now Open Source</span>
 		</div>
 
-		<div class="coming-soon-badge">
-			Coming Soon
-		</div>
-
 		<h1 class="hero-title">
 			Your Links,<br />
 			<span class="gradient-text">Your Server.</span>
 		</h1>
 
 		<p class="hero-description">
-			Developer-first URL shortener with powerful CLI, REST API, and modern dashboard.
-			Self-hosted, privacy-respecting, zero telemetry.
+			A developer-first, privacy-respecting URL manager for self-hosting. Modern web dashboard, powerful CLI, and automation-friendly API.
 		</p>
 
 		<div class="hero-actions">
@@ -50,17 +45,17 @@
 			<div class="terminal-body">
 				<div class="terminal-line">
 					<span class="prompt">$</span>
-					<span class="command">trelay create https://example.com/very-long-url</span>
+					<span class="command">trelay create https://example.com/very-long-url --slug my-link</span>
 				</div>
 				<div class="terminal-line output">
-					<span class="success">✓</span> Created: <span class="link">https://trl.sh/abc123</span>
+					<span class="success">✓</span> Created: <span class="link">https://yourserver.com/my-link</span>
 				</div>
 				<div class="terminal-line">
 					<span class="prompt">$</span>
-					<span class="command">trelay stats abc123 --format table</span>
+					<span class="command">trelay stats my-link</span>
 				</div>
 				<div class="terminal-line output stats-output">
-					<span class="muted">Slug:</span> abc123
+					<span class="muted">Slug:</span> my-link
 				</div>
 				<div class="terminal-line output stats-output">
 					<span class="muted">Clicks:</span> 1,247 <span class="success">(+23 today)</span>
@@ -132,19 +127,6 @@
 	@keyframes pulse {
 		0%, 100% { opacity: 1; }
 		50% { opacity: 0.5; }
-	}
-
-	.coming-soon-badge {
-		display: inline-block;
-		padding: var(--space-1) var(--space-3);
-		background: linear-gradient(135deg, var(--color-brand) 0%, var(--color-brand-dark) 100%);
-		color: white;
-		font-size: var(--text-xs);
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		border-radius: var(--radius-sm);
-		margin-bottom: var(--space-6);
 	}
 
 	.hero-title {
