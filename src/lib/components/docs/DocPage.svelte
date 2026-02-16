@@ -8,6 +8,99 @@
 	let { title, children }: Props = $props();
 
 	function copyCodeBlock(node: HTMLElement) {
+		const createMarkerStore = () => {
+			const tokens: string[] = [];
+			return {
+				stash(input: string, pattern: RegExp, className: string, groupIndex?: number) {
+					return input.replace(pattern, (...args) => {
+						const fullMatch = args[0] as string;
+						const target = typeof groupIndex === 'number' ? (args[groupIndex] as string) : fullMatch;
+						const html = typeof groupIndex === 'number'
+							? fullMatch.replace(target, `<span class="${className}">${target}</span>`)
+							: `<span class="${className}">${target}</span>`;
+						const marker = `@@TOK${tokens.length}@@`;
+						tokens.push(html);
+						return marker;
+					});
+				},
+				restore(input: string) {
+					return input.replace(/@@TOK(\d+)@@/g, (_, index) => tokens[Number(index)] ?? '');
+				}
+			};
+		};
+
+		const highlightShell = (raw: string) => {
+			const escaped = raw
+				.replaceAll('&', '&amp;')
+				.replaceAll('<', '&lt;')
+				.replaceAll('>', '&gt;');
+
+			return escaped
+				.split('\n')
+				.map((line) => {
+					if (line.trim().startsWith('#')) {
+						return `<span class="tok-comment">${line}</span>`;
+					}
+
+					const store = createMarkerStore();
+					let working = line;
+					working = store.stash(working, /(https?:\/\/[^\s"']+)/g, 'tok-url');
+					working = store.stash(working, /"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/g, 'tok-string');
+					working = store.stash(working, /(^|\s)(--?[a-zA-Z0-9-]+)/g, 'tok-flag', 2);
+					working = store.stash(working, /\$[A-Z_][A-Z0-9_]*/g, 'tok-var');
+					working = store.stash(working, /(^|\s)([a-zA-Z0-9._/-]+)(?=\s|$)/, 'tok-cmd', 2);
+					working = working.replace(/([|&><])/g, '<span class="tok-op">$1</span>');
+					return store.restore(working);
+				})
+				.join('\n');
+		};
+
+		const highlightEnv = (raw: string) => {
+			const escaped = raw
+				.replaceAll('&', '&amp;')
+				.replaceAll('<', '&lt;')
+				.replaceAll('>', '&gt;');
+
+			return escaped
+				.split('\n')
+				.map((line) => {
+					if (line.trim().startsWith('#')) {
+						return `<span class="tok-comment">${line}</span>`;
+					}
+					const match = line.match(/^([A-Z_][A-Z0-9_]*)(=)(.*)$/);
+					if (!match) return line;
+					const [, key, eq, value] = match;
+					return `<span class="tok-key">${key}</span><span class="tok-op">${eq}</span><span class="tok-string">${value}</span>`;
+				})
+				.join('\n');
+		};
+
+		const highlightJson = (raw: string) => {
+			const escaped = raw
+				.replaceAll('&', '&amp;')
+				.replaceAll('<', '&lt;')
+				.replaceAll('>', '&gt;');
+
+			const store = createMarkerStore();
+			let working = escaped;
+			working = store.stash(working, /"(?:\\.|[^"\\])*"(?=\s*:)/g, 'tok-key');
+			working = store.stash(working, /"(?:\\.|[^"\\])*"/g, 'tok-string');
+			working = store.stash(working, /\b-?\d+(?:\.\d+)?(?:e[+-]?\d+)?\b/gi, 'tok-number');
+			working = store.stash(working, /\b(?:true|false|null)\b/g, 'tok-literal');
+			working = working.replace(/([{}\[\],:])/g, '<span class="tok-punct">$1</span>');
+			return store.restore(working);
+		};
+
+		const highlightCode = (raw: string) => {
+			const trimmed = raw.trim();
+			const lines = trimmed.split('\n').filter(Boolean);
+			const envLineCount = lines.filter((line) => /^[A-Z_][A-Z0-9_]*=/.test(line)).length;
+
+			if (trimmed.startsWith('{') || trimmed.startsWith('[')) return highlightJson(raw);
+			if (lines.length > 0 && envLineCount >= Math.ceil(lines.length * 0.5)) return highlightEnv(raw);
+			return highlightShell(raw);
+		};
+
 		const addCopyButtons = () => {
 			const blocks = node.querySelectorAll('pre.code-block');
 			blocks.forEach((pre) => {
@@ -15,6 +108,7 @@
 				const code = pre.querySelector('code');
 				if (!code) return;
 				const text = code.textContent ?? '';
+				code.innerHTML = highlightCode(text);
 				const btn = document.createElement('button');
 				btn.type = 'button';
 				btn.className = 'doc-copy-btn';
@@ -149,6 +243,49 @@
 		line-height: 1.5;
 		font-family: var(--font-mono);
 		color: var(--color-text);
+	}
+
+	.doc-prose :global(.tok-cmd) {
+		color: var(--color-brand);
+		font-weight: 600;
+	}
+
+	.doc-prose :global(.tok-key) {
+		color: #6ea8fe;
+	}
+
+	.doc-prose :global(.tok-flag) {
+		color: #6ea8fe;
+	}
+
+	.doc-prose :global(.tok-string) {
+		color: var(--color-syntax-url);
+	}
+
+	.doc-prose :global(.tok-number) {
+		color: var(--color-text);
+		font-weight: 500;
+	}
+
+	.doc-prose :global(.tok-literal) {
+		color: #b794f4;
+	}
+
+	.doc-prose :global(.tok-comment) {
+		color: var(--color-text-muted);
+	}
+
+	.doc-prose :global(.tok-op),
+	.doc-prose :global(.tok-punct) {
+		color: var(--color-text-muted);
+	}
+
+	.doc-prose :global(.tok-url) {
+		color: var(--color-syntax-url);
+	}
+
+	.doc-prose :global(.tok-var) {
+		color: #4fd1c5;
 	}
 
 	.doc-prose :global(.doc-copy-btn) {
