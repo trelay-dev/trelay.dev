@@ -59,7 +59,9 @@
 						</span>
 					</div>
 					<div class="terminal-line continuation">
-						<span class="flag">--slug</span> <span class="value">docs</span> <span class="flag">--expires</span> <span class="value">30d</span> <span class="flag">--password</span>
+						<span class="option"><span class="flag">--slug</span> <span class="value">docs</span></span>
+						<span class="option"><span class="flag">--expires</span> <span class="value">30d</span></span>
+						<span class="option"><span class="flag">--password</span></span>
 					</div>
 					<div class="terminal-line output">
 						<span class="muted">Password:</span> <span class="hidden-text">••••••••</span>
@@ -251,6 +253,17 @@
 	.terminal-line.continuation {
 		padding-left: var(--space-4);
 		color: #a0a0a0;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		column-gap: var(--space-4);
+		row-gap: var(--space-1);
+	}
+
+	.option {
+		display: inline-flex;
+		gap: var(--space-2);
+		white-space: nowrap;
 	}
 
 	.terminal-line.output {
@@ -290,10 +303,12 @@
 
 	.flag {
 		color: #6ea8fe;
+		white-space: nowrap;
 	}
 
 	.value {
 		color: #a0a0a0;
+		white-space: nowrap;
 	}
 
 	.pipe {
@@ -355,16 +370,24 @@
 
 		.cli-content {
 			max-width: 100%;
-			text-align: center;
+			text-align: left;
 		}
 
 		.commands-list {
-			align-items: center;
+			align-items: stretch;
 		}
 
 		.command-item {
-			flex-direction: column;
-			gap: var(--space-1);
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			gap: var(--space-3);
+			padding: var(--space-1) 0;
+		}
+
+		.command-desc {
+			text-align: right;
+			max-width: 60%;
 		}
 	}
 
@@ -373,8 +396,41 @@
 			padding: var(--space-16) 0;
 		}
 
+		.cli-content {
+			text-align: left;
+		}
+
 		.section-title {
 			font-size: var(--text-3xl);
+		}
+
+		.commands-list {
+			align-items: stretch;
+			gap: var(--space-2);
+			margin-bottom: var(--space-6);
+		}
+
+		.command-item {
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			gap: var(--space-3);
+			padding: var(--space-2) var(--space-3);
+			background: var(--color-bg-elevated);
+			border: 1px solid var(--color-border-light);
+			border-radius: var(--radius-sm);
+		}
+
+		.command-code {
+			font-size: var(--text-xs);
+			padding: 2px var(--space-2);
+		}
+
+		.command-desc {
+			font-size: var(--text-xs);
+			line-height: 1.35;
+			text-align: right;
+			max-width: 58%;
 		}
 
 		.terminal-body {

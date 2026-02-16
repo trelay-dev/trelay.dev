@@ -174,7 +174,20 @@
 
 	@media (max-width: 480px) {
 		.footer-links {
-			grid-template-columns: 1fr;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: var(--space-6);
+		}
+
+		.logo {
+			justify-content: flex-start;
+		}
+
+		.footer-group {
+			text-align: left;
+		}
+
+		.footer-nav {
+			align-items: flex-start;
 		}
 	}
 </style>
