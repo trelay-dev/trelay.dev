@@ -20,17 +20,23 @@
 				</p>
 
 				<div class="commands-list">
-					{#each commands as { cmd, desc }}
-						<div class="command-item">
-							<code class="command-code">
-								<span class="cmd-name">{cmd.split(' ')[0]}</span>
-								{#if cmd.split(' ').length > 1}
-									<span class="cmd-action"> {cmd.split(' ').slice(1).join(' ')}</span>
-								{/if}
-							</code>
-							<span class="command-desc">{desc}</span>
-						</div>
-					{/each}
+					<table class="commands-table" aria-label="CLI command reference">
+						<tbody>
+							{#each commands as { cmd, desc }}
+								<tr>
+									<td>
+										<code class="command-code">
+											<span class="cmd-name">{cmd.split(' ')[0]}</span>
+											{#if cmd.split(' ').length > 1}
+												<span class="cmd-action"> {cmd.split(' ').slice(1).join(' ')}</span>
+											{/if}
+										</code>
+									</td>
+									<td class="command-desc">{desc}</td>
+								</tr>
+							{/each}
+						</tbody>
+					</table>
 				</div>
 
 				<a href="/docs/cli" class="btn btn-secondary">
@@ -141,27 +147,41 @@
 	}
 
 	.commands-list {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-3);
+		width: 100%;
 		margin-bottom: var(--space-8);
 	}
 
-	.command-item {
-		display: flex;
-		align-items: center;
-		gap: var(--space-4);
+	.commands-table {
+		width: 100%;
+		border-collapse: collapse;
+		table-layout: fixed;
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-md);
+		overflow: hidden;
+		background: var(--color-bg-elevated);
+	}
+
+	.commands-table td {
+		padding: var(--space-3);
+		border-bottom: 1px solid var(--color-border-light);
+		vertical-align: middle;
+	}
+
+	.commands-table tr:last-child td {
+		border-bottom: none;
+	}
+
+	.commands-table td:first-child {
+		width: 42%;
+		border-right: 1px solid var(--color-border-light);
 	}
 
 	.command-code {
 		font-family: var(--font-mono);
 		font-size: var(--text-sm);
-		background: var(--color-bg-elevated);
-		padding: var(--space-1) var(--space-3);
-		border-radius: var(--radius-sm);
-		border: 1px solid var(--color-border-light);
+		background: transparent;
+		padding: 0;
 		white-space: nowrap;
-		flex-shrink: 0;
 	}
 
 	.command-code .cmd-name {
@@ -176,6 +196,7 @@
 	.command-desc {
 		font-size: var(--text-sm);
 		color: var(--color-text-secondary);
+		line-height: 1.35;
 	}
 
 	.btn {
@@ -374,20 +395,11 @@
 		}
 
 		.commands-list {
-			align-items: stretch;
+			margin-bottom: var(--space-6);
 		}
 
-		.command-item {
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
-			gap: var(--space-3);
-			padding: var(--space-1) 0;
-		}
-
-		.command-desc {
-			text-align: right;
-			max-width: 60%;
+		.commands-table td:first-child {
+			width: 44%;
 		}
 	}
 
@@ -405,32 +417,24 @@
 		}
 
 		.commands-list {
-			align-items: stretch;
-			gap: var(--space-2);
 			margin-bottom: var(--space-6);
 		}
 
-		.command-item {
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
-			gap: var(--space-3);
-			padding: var(--space-2) var(--space-3);
-			background: var(--color-bg-elevated);
-			border: 1px solid var(--color-border-light);
-			border-radius: var(--radius-sm);
+		.commands-table td {
+			padding: var(--space-2);
 		}
 
 		.command-code {
 			font-size: var(--text-xs);
-			padding: 2px var(--space-2);
 		}
 
 		.command-desc {
 			font-size: var(--text-xs);
 			line-height: 1.35;
-			text-align: right;
-			max-width: 58%;
+		}
+
+		.commands-table td:first-child {
+			width: 48%;
 		}
 
 		.terminal-body {
