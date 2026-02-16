@@ -226,7 +226,6 @@
 	.doc-prose :global(pre.code-block) {
 		position: relative;
 		margin-bottom: var(--space-4);
-		overflow-x: auto;
 		padding: var(--space-4) var(--space-12) var(--space-4) var(--space-4);
 		background: var(--color-bg-elevated);
 		border: 1px solid var(--color-border);
@@ -243,6 +242,7 @@
 		line-height: 1.5;
 		font-family: var(--font-mono);
 		color: var(--color-text);
+		overflow-x: auto;
 	}
 
 	.doc-prose :global(.tok-cmd) {
