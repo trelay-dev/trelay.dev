@@ -339,4 +339,21 @@
 	.doc-prose :global(a:hover) {
 		text-decoration: underline;
 	}
+
+	@media (max-width: 640px) {
+		.doc-prose :global(table) {
+			display: block;
+			width: 100%;
+			overflow-x: auto;
+			-webkit-overflow-scrolling: touch;
+			border-collapse: separate;
+			border-spacing: 0;
+			white-space: nowrap;
+		}
+
+		.doc-prose :global(th),
+		.doc-prose :global(td) {
+			white-space: nowrap;
+		}
+	}
 </style>
