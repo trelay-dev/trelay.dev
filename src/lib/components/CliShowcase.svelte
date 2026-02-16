@@ -22,7 +22,12 @@
 				<div class="commands-list">
 					{#each commands as { cmd, desc }}
 						<div class="command-item">
-							<code class="command-code">{cmd}</code>
+							<code class="command-code">
+								<span class="cmd-name">{cmd.split(' ')[0]}</span>
+								{#if cmd.split(' ').length > 1}
+									<span class="cmd-action"> {cmd.split(' ').slice(1).join(' ')}</span>
+								{/if}
+							</code>
 							<span class="command-desc">{desc}</span>
 						</div>
 					{/each}
@@ -49,10 +54,12 @@
 				<div class="terminal-body">
 					<div class="terminal-line">
 						<span class="prompt">$</span>
-						<span class="command">trelay create https://docs.example.com/api/v2 \</span>
+						<span class="command">
+							<span class="cmd-name">trelay</span> <span class="cmd-action">create</span> <span class="url">https://docs.example.com/api/v2</span> <span class="line-cont">\</span>
+						</span>
 					</div>
 					<div class="terminal-line continuation">
-						<span class="flag">--slug</span> docs <span class="flag">--expires</span> 30d <span class="flag">--password</span>
+						<span class="flag">--slug</span> <span class="value">docs</span> <span class="flag">--expires</span> <span class="value">30d</span> <span class="flag">--password</span>
 					</div>
 					<div class="terminal-line output">
 						<span class="muted">Password:</span> <span class="hidden-text">••••••••</span>
@@ -61,10 +68,10 @@
 						<span class="success">✓</span> Created link
 					</div>
 					<div class="terminal-line output">
-						<span class="muted">URL:</span> https://trl.sh/docs
+						<span class="muted">URL:</span> <span class="link">https://trl.sh/docs</span>
 					</div>
 					<div class="terminal-line output">
-						<span class="muted">Expires:</span> 2026-03-07
+						<span class="muted">Expires:</span> <span class="value">2026-03-07</span>
 					</div>
 					<div class="terminal-line output">
 						<span class="muted">Protected:</span> <span class="success">Yes</span>
@@ -72,15 +79,17 @@
 					<div class="terminal-line spacer"></div>
 					<div class="terminal-line">
 						<span class="prompt">$</span>
-						<span class="command">trelay list --format json | jq '.[0]'</span>
+						<span class="command">
+							<span class="cmd-name">trelay</span> <span class="cmd-action">list</span> <span class="flag">--format</span> <span class="value">json</span> <span class="pipe">|</span> <span class="cmd-name">jq</span> <span class="string">'.[0]'</span>
+						</span>
 					</div>
 					<div class="terminal-line output json-output">
-						<pre>{`{
-  "slug": "docs",
-  "url": "https://docs.example.com/api/v2",
-  "clicks": 0,
-  "created": "2026-02-05T14:30:00Z"
-}`}</pre>
+						<pre><span class="json-brace">&#123;</span>
+  <span class="json-key">"slug"</span>: <span class="json-string">"docs"</span>,
+  <span class="json-key">"url"</span>: <span class="json-string">"https://docs.example.com/api/v2"</span>,
+  <span class="json-key">"clicks"</span>: <span class="json-number">0</span>,
+  <span class="json-key">"created"</span>: <span class="json-string">"2026-02-05T14:30:00Z"</span>
+<span class="json-brace">&#125;</span></pre>
 					</div>
 				</div>
 			</div>
@@ -149,9 +158,17 @@
 		padding: var(--space-1) var(--space-3);
 		border-radius: var(--radius-sm);
 		border: 1px solid var(--color-border-light);
-		color: var(--color-brand);
 		white-space: nowrap;
 		flex-shrink: 0;
+	}
+
+	.command-code .cmd-name {
+		color: var(--color-brand);
+		font-weight: 500;
+	}
+
+	.command-code .cmd-action {
+		color: #6ea8fe;
 	}
 
 	.command-desc {
@@ -254,8 +271,41 @@
 		color: #f5f5f5;
 	}
 
+	.cmd-name {
+		color: #f5f5f5;
+		font-weight: 500;
+	}
+
+	.cmd-action {
+		color: #6ea8fe;
+	}
+
+	.url {
+		color: var(--color-syntax-url);
+	}
+
+	.line-cont {
+		color: #666;
+	}
+
 	.flag {
 		color: #6ea8fe;
+	}
+
+	.value {
+		color: #a0a0a0;
+	}
+
+	.pipe {
+		color: #666;
+	}
+
+	.string {
+		color: var(--color-syntax-url);
+	}
+
+	.link {
+		color: var(--color-brand);
 	}
 
 	.muted {
@@ -279,6 +329,22 @@
 		font-size: var(--text-xs);
 		line-height: 1.4;
 		margin: 0;
+	}
+
+	.json-key {
+		color: #6ea8fe;
+	}
+
+	.json-string {
+		color: var(--color-syntax-url);
+	}
+
+	.json-number {
+		color: #f5f5f5;
+	}
+
+	.json-brace {
+		color: #a0a0a0;
 	}
 
 	@media (max-width: 1024px) {

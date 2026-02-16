@@ -45,23 +45,27 @@
 			<div class="terminal-body">
 				<div class="terminal-line">
 					<span class="prompt">$</span>
-					<span class="command">trelay create https://example.com/very-long-url --slug my-link</span>
+					<span class="command">
+						<span class="cmd-name">trelay</span> <span class="cmd-action">create</span> <span class="url">https://example.com/very-long-url</span> <span class="flag">--slug</span> <span class="value">my-link</span>
+					</span>
 				</div>
 				<div class="terminal-line output">
 					<span class="success">✓</span> Created: <span class="link">https://yourserver.com/my-link</span>
 				</div>
 				<div class="terminal-line">
 					<span class="prompt">$</span>
-					<span class="command">trelay stats my-link</span>
+					<span class="command">
+						<span class="cmd-name">trelay</span> <span class="cmd-action">stats</span> <span class="value">my-link</span>
+					</span>
 				</div>
 				<div class="terminal-line output stats-output">
-					<span class="muted">Slug:</span> my-link
+					<span class="muted">Slug:</span> <span class="value">my-link</span>
 				</div>
 				<div class="terminal-line output stats-output">
-					<span class="muted">Clicks:</span> 1,247 <span class="success">(+23 today)</span>
+					<span class="muted">Clicks:</span> <span class="number">1,247</span> <span class="success">(+23 today)</span>
 				</div>
 				<div class="terminal-line output stats-output">
-					<span class="muted">Created:</span> 7 days ago
+					<span class="muted">Created:</span> <span class="value">7 days ago</span>
 				</div>
 			</div>
 		</div>
@@ -258,6 +262,31 @@
 	}
 
 	.command {
+		color: var(--color-text);
+	}
+
+	.cmd-name {
+		color: var(--color-text);
+		font-weight: 500;
+	}
+
+	.cmd-action {
+		color: #6ea8fe;
+	}
+
+	.url {
+		color: var(--color-syntax-url);
+	}
+
+	.flag {
+		color: #6ea8fe;
+	}
+
+	.value {
+		color: var(--color-text-secondary);
+	}
+
+	.number {
 		color: var(--color-text);
 	}
 

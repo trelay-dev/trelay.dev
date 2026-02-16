@@ -52,7 +52,12 @@ docker compose up -d`;
 					</svg>
 				{/if}
 			</button>
-			<code>{CTA_CODE}</code>
+			<code class="code-block">
+				<span class="code-line"><span class="cmd-name">git</span> <span class="cmd-action">clone</span> <span class="url">https://github.com/trelay-dev/trelay.git</span></span>
+				<span class="code-line"><span class="cmd-name">cd</span> <span class="value">trelay</span></span>
+				<span class="code-line"><span class="cmd-name">cp</span> <span class="value">env.example</span> <span class="value">.env</span></span>
+				<span class="code-line"><span class="cmd-name">docker</span> <span class="cmd-action">compose</span> <span class="flag">up</span> <span class="flag">-d</span></span>
+			</code>
 		</div>
 
 			<div class="cta-actions">
@@ -112,9 +117,36 @@ docker compose up -d`;
 		font-family: var(--font-mono);
 		font-size: var(--text-sm);
 		color: var(--color-text);
-		white-space: pre;
+		white-space: normal;
 		display: block;
 		line-height: 1.6;
+		overflow-x: auto;
+	}
+
+	.code-line {
+		display: block;
+		white-space: nowrap;
+	}
+
+	.code-block .cmd-name {
+		color: var(--color-brand);
+		font-weight: 500;
+	}
+
+	.code-block .cmd-action {
+		color: #6ea8fe;
+	}
+
+	.code-block .url {
+		color: var(--color-syntax-url);
+	}
+
+	.code-block .value {
+		color: var(--color-text-secondary);
+	}
+
+	.code-block .flag {
+		color: #6ea8fe;
 	}
 
 	.copy-btn {
