@@ -8,8 +8,6 @@
 
 This repo is the marketing site and docs for **Trelay**, the self-hosted URL manager. The app itself lives at [github.com/trelay-dev/trelay](https://github.com/trelay-dev/trelay).
 
-What you see on the public web as **v2.0** is the open source stack (Go + SvelteKit). Older iterations were never open sourced, which is why you will not find a v1 release on GitHub.
-
 ## Why Trelay?
 
 - **Self-hosted**: data stays on your box

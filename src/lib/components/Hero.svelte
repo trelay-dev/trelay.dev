@@ -9,7 +9,7 @@
 	<div class="hero-content container">
 		<div class="badge">
 			<span class="badge-dot"></span>
-			<span>v2.0 — Now Open Source</span>
+			<span>Open source</span>
 		</div>
 
 		<h1 class="hero-title">
