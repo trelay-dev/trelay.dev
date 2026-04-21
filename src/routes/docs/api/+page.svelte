@@ -21,7 +21,7 @@
 		<li><strong>API key</strong> — Send header <code>X-API-Key: YOUR_API_KEY</code> on every request.</li>
 		<li><strong>JWT</strong> — Login via <code>POST /api/v1/auth/login</code> with <code>{'{"api_key":"YOUR_API_KEY"}'}</code>, then send <code>Authorization: Bearer &lt;token&gt;</code> on subsequent requests.</li>
 	</ul>
-	<p>Redirects (<code>{'GET /{slug}'}</code>) and <code>GET /healthz</code> do not require auth.</p>
+	<p>Redirects (<code>{'GET /{slug}'}</code>, <code>{'POST /{slug}'}</code> for password forms) and <code>GET /healthz</code> do not require auth.</p>
 
 	<h2>Endpoints</h2>
 
@@ -74,12 +74,12 @@
 			<tr>
 				<td>POST</td>
 				<td><code>/api/v1/links</code></td>
-				<td>Create link. Body: <code>url</code> (required), <code>slug</code>, <code>domain</code>, <code>password</code>, <code>ttl_hours</code>, <code>tags</code>, <code>folder_id</code>, <code>is_one_time</code>.</td>
+				<td>Create link. Body: <code>url</code> (required), <code>slug</code>, <code>domain</code>, <code>password</code>, <code>ttl_hours</code>, <code>tags</code>, <code>folder_id</code>, <code>is_one_time</code>, optional <code>og_title</code>, <code>og_description</code>, <code>og_image_url</code> for dashboard previews.</td>
 			</tr>
 			<tr>
 				<td>GET</td>
 				<td><code>/api/v1/links</code></td>
-				<td>List links. Query: <code>search</code>, <code>folder_id</code>, <code>limit</code>, <code>offset</code>, <code>include_deleted</code>, <code>only_deleted</code>, <code>created_after</code>, <code>created_before</code>.</td>
+				<td>List links. Query: <code>search</code>, <code>folder_id</code>, <code>domain</code>, <code>tags</code> (repeat per tag), <code>has_expiry</code>, <code>expires_after</code>, <code>expires_before</code>, <code>limit</code>, <code>offset</code>, <code>include_deleted</code>, <code>only_deleted</code>, <code>created_after</code>, <code>created_before</code>.</td>
 			</tr>
 			<tr>
 				<td>GET</td>
@@ -89,7 +89,7 @@
 			<tr>
 				<td>PATCH</td>
 				<td><code>{'/api/v1/links/{slug}'}</code></td>
-				<td>Update link. Body: <code>url</code>, <code>password</code>, <code>ttl_hours</code>, <code>tags</code>, <code>folder_id</code>.</td>
+				<td>Update link. Body: <code>url</code>, <code>password</code>, <code>ttl_hours</code>, <code>tags</code>, <code>folder_id</code>, <code>og_title</code>, <code>og_description</code>, <code>og_image_url</code>.</td>
 			</tr>
 			<tr>
 				<td>DELETE</td>
@@ -100,6 +100,16 @@
 				<td>POST</td>
 				<td><code>{'/api/v1/links/{slug}/restore'}</code></td>
 				<td>Restore a soft-deleted link.</td>
+			</tr>
+			<tr>
+				<td>PATCH</td>
+				<td><code>/api/v1/links/bulk</code></td>
+				<td>Bulk folder/tags. Body: <code>slugs</code>, optional <code>folder_id</code>, <code>remove_folder</code>, <code>tags</code>, <code>append_tags</code>.</td>
+			</tr>
+			<tr>
+				<td>POST</td>
+				<td><code>/api/v1/links/bulk/restore</code></td>
+				<td>Bulk restore from trash. Body: <code>{'{"slugs":["a","b"]}'}</code>.</td>
 			</tr>
 			<tr>
 				<td>DELETE</td>
@@ -122,7 +132,12 @@
 			<tr>
 				<td>GET</td>
 				<td><code>{'/{slug}'}</code></td>
-				<td>Redirect to original URL. Query: <code>password</code> if link is password-protected.</td>
+				<td>Redirect to original URL. Password-protected links: use query <code>p</code>, or open in a browser without <code>p</code> to get an HTML password page (JSON clients can send <code>Accept: application/json</code> for API-style errors).</td>
+			</tr>
+			<tr>
+				<td>POST</td>
+				<td><code>{'/{slug}'}</code></td>
+				<td>Password form submit (<code>application/x-www-form-urlencoded</code> with <code>password</code>). Same redirect behavior as GET with <code>p</code>.</td>
 			</tr>
 		</tbody>
 	</table>

@@ -3,7 +3,8 @@
 		{
 			icon: 'link',
 			title: 'Link Management',
-			description: 'Custom slugs, expiration, password protection, one-time links that self-destruct after first use, and folder organization.'
+			description:
+				'Custom slugs, expiration, password gate page (or query param), one-time links, folders, bulk move and tags, filters, OG preview overrides, and expiry hints on each row.'
 		},
 		{
 			icon: 'chart',
